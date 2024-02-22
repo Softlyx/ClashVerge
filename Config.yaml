@@ -96,7 +96,7 @@ i: &i {type: http, behavior: ipcidr, interval: 86400}
 ###结束
 
 proxy-providers:
-  Subscribe: {<<: *p, path: ./proxy-providers/Sub.yaml, url: http://your-service-provider}
+  Subscribe: {<<: *p, path: ./proxy-providers/Sub.yaml, url: https://tagcdnsub.work/api/v1/client/subscribe?token=86efdb9b5621631b90b3b66fc91ea1d1}
     # 在此将"http://your-service-provider"替换为你的机场订阅，推荐使用base64或者node list
     # Sub-Store生成的链接,可以直接替换上述url引号中的部分,具体见Sub-Store教程         
                
@@ -248,9 +248,9 @@ rules:
   - RULE-SET,ChinaIPs,🇨🇳 国内服务
   - RULE-SET,ChinaMax,🇨🇳 国内服务
   - RULE-SET,ChinaMedia,🇨🇳 国内服务
-  - RULE-SET,Lan,DIRECT
-  - GEOIP,CN,🌏 国内网站
-  - MATCH,🐟 兜底分流
+  - RULE-SET,Lan,🇨🇳 国内服务
+  - GEOIP,CN,🇨🇳 国内服务
+  - MATCH,🐟 漏网之鱼
 
 script:
   shortcuts:
