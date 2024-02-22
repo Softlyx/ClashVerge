@@ -229,7 +229,7 @@ rules:
   - RULE-SET,Apple,🍎 苹果服务
   - RULE-SET,AppleID,🍎 苹果服务
   - RULE-SET,Microsoft,Ⓜ️ 微软服务
-  - RULE-SET,Emby,🇨🇳 国内服务
+  - RULE-SET,Emby,🎥 Emby
   - RULE-SET,OpenAI,🤖 OpenAI
   - RULE-SET,Spotify,🎵 Spotify
   - RULE-SET,TikTok,🎶 TikTok
