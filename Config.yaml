@@ -73,16 +73,16 @@ pg: &pg {type: select, proxies: [🚀 手动切换, 🇭🇰 香港节点, 🇺�
 p: &p {type: http, interval: 86400, health-check: {enable: true, url: http://www.gstatic.com/generate_204, interval: 1800}}
 
 # 自动选择策略组：选取延迟最低节点
-auto: &auto {type: url-test, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe]}
+auto: &auto {type: url-test, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe,Subscribe1,Subscribe2]}
 
 # 手动选择策略组：手动选择想要的节点/策略组
-select: &select {type: select, use: [Subscribe]}
+select: &select {type: select, use: [Subscribe,Subscribe1,Subscribe2]}
 
 # 故障回退策略组：策略组将按顺序选择你列表中第一个可用的节点
-fallback: &fallback {type: fallback, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe]}
+fallback: &fallback {type: fallback, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe,Subscribe1,Subscribe2]}
 
 # 负载均衡策略组：不同的请求将使用不同的代理节点
-load-balance: &load-balance {type: load-balance, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe]}
+load-balance: &load-balance {type: load-balance, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe,Subscribe1,Subscribe2]}
 
 # classical规则相关
 c: &c {type: http, behavior: classical, interval: 86400}
@@ -97,6 +97,8 @@ i: &i {type: http, behavior: ipcidr, interval: 86400}
 
 proxy-providers:
   Subscribe: {<<: *p, path: ./proxy-providers/Sub.yaml, url: http://your-service-provider}
+  Subscribe1: {<<: *p, path: ./proxy-providers/Sub1.yaml, url: http://your-service-provider}
+  Subscribe2: {<<: *p, path: ./proxy-providers/Sub2.yaml, url: http://your-service-provider}
     # 在此将"http://your-service-provider"替换为你的机场订阅，推荐使用base64或者node list
     # Sub-Store生成的链接,可以直接替换上述url引号中的部分,具体见Sub-Store教程         
                
@@ -108,7 +110,7 @@ proxy-groups:
 
   - {name: 🚀 节点选择, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇸 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, DIRECT, ♻️ 自动选择, ⚠️ 故障转移]}
 
-  - {name: 📌 手动切换, type: select, use: [Subscribe]}
+  - {name: 📌 手动切换, type: select, use: [Subscribe,Subscribe1,Subscribe2]}
 
   #节点地区分组
 
