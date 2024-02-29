@@ -1,7 +1,11 @@
 # 以 '#' 或 '//' 开头的配置文件行为注释行
-# 参考 https://raw.githubusercontent.com/Repcz/Tool/X/Clash/Meta/ClashVerge.yaml
-# 使用说明 https://github.com/DustinWin/clash_singbox-tutorials
+#
+# 此配置仅适用于Clash Verge/ClashMetaForAndroid,其他ClashMeta客户端未经测试
+#
+# 最后更新时间: 2024-2-13 12:45
+#
 # ================
+# https://raw.githubusercontent.com/Repcz/Tool/X/Clash/Meta/ClashVerge.yaml
 
 mixed-port: 7893      # 混合端口 HTTP和SOCKS5用一个端口
 geodata-mode: true    #【Meta专属】使用geoip.dat数据库(默认：false使用mmdb数据库)
@@ -69,16 +73,16 @@ pg: &pg {type: select, proxies: [🚀 手动切换, 🇭🇰 香港节点, 🇺�
 p: &p {type: http, interval: 86400, health-check: {enable: true, url: http://www.gstatic.com/generate_204, interval: 1800}}
 
 # 自动选择策略组：选取延迟最低节点
-auto: &auto {type: url-test, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe,Subscribe1,Subscribe2]}
+auto: &auto {type: url-test, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe0,Subscribe1,Subscribe2,Subscribe3,Subscribe4,Subscribe5,Subscribe6,Subscribe7,Subscribe8,Subscribe9]}
 
 # 手动选择策略组：手动选择想要的节点/策略组
-select: &select {type: select, use: [Subscribe,Subscribe1,Subscribe2]}
+select: &select {type: select, use: [Subscribe0,Subscribe1,Subscribe2,Subscribe3,Subscribe4,Subscribe5,Subscribe6,Subscribe7,Subscribe8,Subscribe9]}
 
 # 故障回退策略组：策略组将按顺序选择你列表中第一个可用的节点
-fallback: &fallback {type: fallback, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe,Subscribe1,Subscribe2]}
+fallback: &fallback {type: fallback, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe0,Subscribe1,Subscribe2,Subscribe3,Subscribe4,Subscribe5,Subscribe6,Subscribe7,Subscribe8,Subscribe9]}
 
 # 负载均衡策略组：不同的请求将使用不同的代理节点
-load-balance: &load-balance {type: load-balance, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe,Subscribe1,Subscribe2]}
+load-balance: &load-balance {type: load-balance, lazy: true, url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe0,Subscribe1,Subscribe2,Subscribe3,Subscribe4,Subscribe5,Subscribe6,Subscribe7,Subscribe8,Subscribe9]}
 
 # classical规则相关
 c: &c {type: http, behavior: classical, interval: 86400}
@@ -92,9 +96,17 @@ i: &i {type: http, behavior: ipcidr, interval: 86400}
 ###结束
 
 proxy-providers:
-  Subscribe: {<<: *p, path: ./proxy-providers/Sub.yaml, url: http://your-service-provider}
+  Subscribe0: {<<: *p, path: ./proxy-providers/Sub0.yaml, url: http://your-service-provider}
   Subscribe1: {<<: *p, path: ./proxy-providers/Sub1.yaml, url: http://your-service-provider}
   Subscribe2: {<<: *p, path: ./proxy-providers/Sub2.yaml, url: http://your-service-provider}
+  Subscribe3: {<<: *p, path: ./proxy-providers/Sub3.yaml, url: http://your-service-provider}
+  Subscribe4: {<<: *p, path: ./proxy-providers/Sub4.yaml, url: http://your-service-provider}
+  Subscribe5: {<<: *p, path: ./proxy-providers/Sub5.yaml, url: http://your-service-provider}
+  Subscribe6: {<<: *p, path: ./proxy-providers/Sub6.yaml, url: http://your-service-provider}
+  Subscribe7: {<<: *p, path: ./proxy-providers/Sub7.yaml, url: http://your-service-provider}
+  Subscribe8: {<<: *p, path: ./proxy-providers/Sub8.yaml, url: http://your-service-provider}
+  Subscribe9: {<<: *p, path: ./proxy-providers/Sub9.yaml, url: http://your-service-provider}
+
     # 在此将"http://your-service-provider"替换为你的机场订阅，推荐使用base64或者node list
     # Sub-Store生成的链接,可以直接替换上述url引号中的部分,具体见Sub-Store教程         
                
@@ -106,19 +118,19 @@ proxy-groups:
 
   - {name: 🚀 节点选择, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇸 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, DIRECT, ♻️ 自动选择, ⚠️ 故障转移]}
 
-  - {name: 📌 手动切换, type: select, use: [Subscribe,Subscribe1,Subscribe2]}
+  - {name: 📌 手动切换, type: select, use: [Subscribe0,Subscribe1,Subscribe2,Subscribe3,Subscribe4,Subscribe5,Subscribe6,Subscribe7,Subscribe8,Subscribe9]}
 
   #节点地区分组
 
   - {name: 🇭🇰 香港节点, <<: *auto, filter: "(?=.*(港|HK|🇭🇰|(?i)Hong))^((?!(WARP|台|日|韩|新|美)).)*$"}
 
-  - {name: 🇺🇸 美国节点, <<: *auto, filter: "(?=.*(美|US|🇺🇸|(?i)States|American))^((?!(WARP|港|台|日|韩|新)).)*$"}
+  - {name: 🇺🇸 美国节点, <<: *auto, filter: "(?=.*(美|US|🇺🇸|(?i)States|American))^((?!(WARP|港|台|日|韩|新|🇦🇲)).)*$"}
 
   - {name: 🇯🇵 日本节点, <<: *auto, filter: "(?=.*(日|JP|🇯🇵|(?i)Japan))^((?!(WARP|港|台|韩|新|狮|美|利亚)).)*$"}
 
   - {name: 🇨🇳 台湾节点, <<: *auto, filter: "(?=.*(台|TW|(?i)Taiwan))^((?!(WARP|港|日|韩|新|美)).)*$"}
   
-  - {name: 🇸🇬 狮城节点, <<: *auto, filter: "(?=.*(新|狮|獅|SG|🇸🇬|(?i)Singapore))^((?!(WARP|港|台|日|韩|美)).)*$"}
+  - {name: 🇸🇬 狮城节点, <<: *auto, filter: "(?=.*(新|狮|獅|SG|🇸🇬|(?i)Singapore))^((?!(WARP|港|台|日|韩|美|🇳🇿)).)*$"}
 
   - {name: 🇺🇳 国际节点, <<: *auto, filter: "(?=.*)^((?!(WARP|港|HK|日|JP|台|TW|新|SG|美|US|🇨🇳|🇭🇰|🇺🇸|🇯🇵|🏳️‍🌈|🇸🇬)).)*$"}
 
